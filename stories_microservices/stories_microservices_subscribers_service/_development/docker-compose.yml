@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  subscribers_db:
+    container_name:  postgres-subs-db
+    image:           postgres
+    ports:
+      - 5434:5432 # Bind host port 5432 to PostgreSQL port 5434
+    restart: always
+    volumes:
+      - ../db-data:/var/lib/postgresql/data
+    env_file: ../.env
+    environment:
+      - LC_ALL=C.UTF-8

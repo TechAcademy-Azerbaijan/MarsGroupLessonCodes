@@ -2,6 +2,8 @@ from post_service.config.extentions import db
 from sqlalchemy.sql import func
 from slugify import slugify
 
+from post_service.cache import SaveCache
+
 
 class SaveMixin(object):
     id = db.Column(db.Integer, primary_key=True)
@@ -94,7 +96,13 @@ class Recipe(SaveMixin, db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+        SaveCache(self)
 
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def to_dict(self):
+        from post_service.schemas.schmas import RecipeSchema
+        return RecipeSchema().dumps(self)
+
