@@ -1,0 +1,9 @@
+<h1>
+    Post list
+</h1>
+
+<ul>
+    {% for post in post_list %}
+        <li>Title: {{post.title}}, description: {{ post.description}} owner: {{post.owner_full_name }} created at: {{post.created_at}}</li>
+    {% endfor %}
+</ul>

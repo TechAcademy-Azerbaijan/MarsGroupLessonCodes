@@ -1,13 +1,13 @@
-from auth_service.config.extentions import db, login_manager
+from .config.extentions import db, login_manager
 from flask import render_template, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import validates
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
-from auth_service.publisher import Publish
+from .publisher import Publish
 
-from auth_service.utils.tokens import generate_confirmation_token
+from .utils.tokens import generate_confirmation_token
 
 
 @login_manager.user_loader
@@ -43,6 +43,11 @@ class User(UserMixin, db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+        from .schemas.schemas import UserSchema
+        data = UserSchema().dump(self)
+        event_type = 'user_created'
+        print('save edildi')
+        Publish(data=data, event_type=event_type)
 
     def send_confirmation_mail(self):
         token = generate_confirmation_token(self.email)

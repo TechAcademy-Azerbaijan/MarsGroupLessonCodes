@@ -7,7 +7,7 @@ celery_beat_schedule = {
     "time_scheduler": {
         "task": "send_mail_to_subscribers",
         # Run every second
-        "schedule": 5.0,
+        "schedule": 10.0,
         # "schedule": crontab(hour=11, minute=24),
     }
 }

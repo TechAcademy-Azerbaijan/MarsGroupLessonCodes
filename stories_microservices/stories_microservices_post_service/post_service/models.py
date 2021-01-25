@@ -1,8 +1,10 @@
 from post_service.config.extentions import db
 from sqlalchemy.sql import func
 from slugify import slugify
+from flask_login import UserMixin
+from sqlalchemy.sql import func
 
-from post_service.cache import SaveCache
+from .cache import SaveCache
 
 
 class SaveMixin(object):
@@ -54,16 +56,51 @@ class Category(SaveMixin, db.Model):
         self.title = title
         self.image = image
 
-    # def save(self):
-    #     db.session.add(self)
-    #     db.session.commit()
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=False)
+    first_name = db.Column(db.String(30), nullable=True)
+    last_name = db.Column(db.String(150), nullable=True)
+    email = db.Column(db.String(254), nullable=False)
+    username = db.Column(db.String(150), nullable=False)
+    # TODO: Password fieldi sil
+    password = db.Column(db.String(128), nullable=False)
+    is_active = db.Column(db.Boolean, nullable=False, default=False)
+    date_joined = db.Column(db.DateTime(timezone=True), server_default=func.now(), nullable=False)
+    bio = db.Column(db.TEXT, nullable=True)
+    image = db.Column(db.String(500), nullable=True)
+    is_superuser = db.Column(db.Boolean, nullable=False, default=False)
+    recipes = db.relationship('Recipe', backref=db.backref('users', lazy=True))
+
+    def __init__(self, id, email, username, first_name=None, last_name=None, bio=None,
+                 image=None, is_active=False, date_joined=None, is_superuser=False):
+        self.id = id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.username = username
+        self.password = '1234'
+        self.is_active = is_active
+        self.bio = bio
+        self.image = image
+        self.date_joined = date_joined
+        self.is_superuser = is_superuser
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @property
+    def get_full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 class Recipe(SaveMixin, db.Model):
     # relation's
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'),
                             nullable=False)
-    owner_id = db.Column(db.Integer)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+                            nullable=False)
     tags = db.relationship('Tag', secondary=association_table,
                            backref=db.backref('tags', lazy=True))
     slug = db.Column(db.String(120), nullable=False)
@@ -82,7 +119,7 @@ class Recipe(SaveMixin, db.Model):
     def __repr__(self):
         return self.title
 
-    def __init__(self, title, description, short_description, category_id, owner_id=1, image='',
+    def __init__(self, title, description, short_description, category_id, owner_id=32, image='',
                  is_published=True, **kwargs):
         self.slug = slugify(kwargs.get('title', ''))
         self.title = title
@@ -90,7 +127,8 @@ class Recipe(SaveMixin, db.Model):
         self.description = description
         self.short_description = short_description
         self.category_id = category_id
-        self.owner_id = owner_id
+        owner = User.query.filter_by(id=owner_id).first()
+        self.owner_id = owner
         self.is_published = is_published
 
     def save(self):

@@ -3,7 +3,7 @@ from marshmallow import fields, validate
 
 from auth_service.config.extentions import ma
 
-from auth_service.models import User
+from ..models import User
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):

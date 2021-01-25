@@ -12,5 +12,6 @@ class SaveCache(RedisConfig):
         return json.dumps(obj.to_dict())
 
     def save(self, data):
+        print('data', data)
         client = SaveCache.client()
         client.rpush('posts', data)

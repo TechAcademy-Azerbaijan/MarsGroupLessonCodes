@@ -1,6 +1,6 @@
 from post_service.config.extentions import ma
 from flask_marshmallow.fields import AbsoluteURLFor
-from marshmallow import validates, ValidationError
+from marshmallow import validates, ValidationError, fields
 
 from post_service.models import Recipe, Category
 
@@ -13,11 +13,15 @@ class RecipeSchema(ma.SQLAlchemyAutoSchema):
         'uploaded_file',
         filename='<image>'
     )
+    owner_full_name = fields.Method('get_owner_name', dump_only=True)
 
     class Meta:
         model = Recipe
         include_fk = True
         load_instance = True
+
+    def get_owner_name(self, recipe):
+        return recipe.users.get_full_name
 
     @validates('category_id')
     def validate_category_id(self, category_id):

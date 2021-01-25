@@ -27,7 +27,7 @@ def recipes():
             image = request.files.get('image')
             serializer = RecipeSchema()
             recipe = serializer.load(data)
-            recipe.owner_id = 1
+            recipe.owner_id = 32
             recipe.image = save_file(image)
             recipe.save()
             return RecipeSchema().jsonify(recipe), HTTPStatus.CREATED
