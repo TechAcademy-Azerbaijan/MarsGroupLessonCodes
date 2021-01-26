@@ -1,4 +1,4 @@
-from post_service.config.extentions import db
+from .config.extentions import db
 from sqlalchemy.sql import func
 from slugify import slugify
 from flask_login import UserMixin
