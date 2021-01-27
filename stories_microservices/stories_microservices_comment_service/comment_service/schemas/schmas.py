@@ -6,7 +6,7 @@ from marshmallow.fields import String, Email, UUID, Nested, Integer, Method
 
 
 class CommentSchema(ma.Schema):
-
+    id = String(dump_only=True)
     post_id = Integer(dump_only=True)
     user_id = Integer(dump_only=True)
     content = String(required=True)

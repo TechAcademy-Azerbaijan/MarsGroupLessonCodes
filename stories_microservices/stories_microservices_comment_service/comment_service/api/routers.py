@@ -42,7 +42,7 @@ def comments(id):
             if parent_comment_id:
                 parent_comment = Comment.objects.get_or_404(id=parent_comment_id)
                 comment_dict = CommentSchema().dump(comment_obj)
-                comment_dict.update({'_id': str(comment_obj.id)})
+                # comment_dict.update({'_id': str(comment_obj.id)})
                 parent_comment.comments.append(comment_dict)
                 parent_comment.save()
             return CommentSchema().jsonify(comment_obj), HTTPStatus.CREATED
