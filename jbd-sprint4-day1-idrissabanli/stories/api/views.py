@@ -17,7 +17,6 @@ class RecipeAPIView(APIView):
     def get(self, request, *args, **kwargs):
         recipes = Recipe.objects.filter(is_published=True)
         serializer = RecipeSerializer(recipes, many=True, context={'request': request})
-        print(serializer.data)
         return Response(data=serializer.data, status=HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):

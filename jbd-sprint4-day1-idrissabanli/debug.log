@@ -2384,3 +2384,13 @@ http://localhost:8000/api/documentation/?format=openapi, success, 2021-01-14 08:
 http://localhost:8000/api/documentation/?format=yml, success, 2021-01-14 08:12:33.487958+00:00 
 http://localhost:8000/api/documentation/?format=json, success, 2021-01-14 08:12:37.755492+00:00 
 http://localhost:8000/api/documentation/?format=openapi.yml, success, 2021-01-14 08:12:43.352737+00:00 
+http://127.0.0.1:8000/az/, success, 2021-01-27 07:17:08.900672+00:00 
+http://127.0.0.1:8000/jsi18n/, success, 2021-01-27 07:17:08.990319+00:00 
+http://127.0.0.1:8000/az/, success, 2021-01-27 07:31:07.792496+00:00 
+http://127.0.0.1:8000/jsi18n/, success, 2021-01-27 07:31:07.902432+00:00 
+http://127.0.0.1:8000/az/, success, 2021-01-27 07:31:13.546032+00:00 
+http://127.0.0.1:8000/jsi18n/, success, 2021-01-27 07:31:13.615205+00:00 
+http://127.0.0.1:8000/az/, success, 2021-01-27 07:31:21.284800+00:00 
+http://127.0.0.1:8000/jsi18n/, success, 2021-01-27 07:31:21.350239+00:00 
+http://localhost:8000/az/, success, 2021-01-27 07:51:52.899395+00:00 
+http://localhost:8000/jsi18n/, success, 2021-01-27 07:51:53.005156+00:00 
