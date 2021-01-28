@@ -9,7 +9,4 @@ from subscribers_service.api.routers import *
 
 # app.config["APPLICATION_ROOT"] = "api/v1.0/post/"
 
-if __name__ == '__main__':
-    # app.init_app(db)
-    app.run(port=5001, debug=True)
 

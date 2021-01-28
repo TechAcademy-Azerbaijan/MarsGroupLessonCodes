@@ -5,6 +5,12 @@ BASE_DIRS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIRS, 'media')
 
 
+class Config:
+    SECRET_KEY = 'this is private'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DEBUG = True
+
+
 class RedisConfig:
     HOST = os.environ.get('HOST', 'localhost')
     PORT = os.environ.get('PORT', 6379)
