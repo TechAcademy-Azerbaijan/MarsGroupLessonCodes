@@ -9,6 +9,7 @@ class ProdConfig(Config):
     DB_HOST = os.environ.get('POSTGRES_HOST')
     DB_PORT = os.environ.get('POSTGRES_PORT')
     REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')
+    REDIS_HOST = os.environ.get('REDIS_HOST')
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-    CELERY_BROKER_URL = f"redis://:{REDIS_PASSWORD}@localhost:6379/0"
+    CELERY_BROKER_URL = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:6379/0"

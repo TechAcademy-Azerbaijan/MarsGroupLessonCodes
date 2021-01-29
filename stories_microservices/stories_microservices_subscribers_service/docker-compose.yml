@@ -23,3 +23,21 @@ services:
     depends_on:
       - "subscribers_db"
     env_file: ./.env
+
+  celery:
+    build:
+      context: .
+      dockerfile: celery.dockerfile
+    command: celery -A subscribers_service.config.celery worker --loglevel=INFO -B
+    volumes:
+      - .:/code
+    depends_on:
+      - "subscribers_db"
+    env_file: ./.env
+#    links:
+#      - "redis"
+
+networks:
+  default:
+    external:
+      name: redis

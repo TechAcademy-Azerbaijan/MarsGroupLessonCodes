@@ -12,10 +12,10 @@ class Config:
 
 
 class RedisConfig:
-    HOST = os.environ.get('HOST', 'localhost')
-    PORT = os.environ.get('PORT', 6379)
+    HOST = os.environ.get('REDIS_HOST', 'localhost')
+    PORT = os.environ.get('REDIS_PORT', 6379)
     CHANNEL_NAME = 'events'
-    PASSWORD = os.environ.get('PASSWORD', '12345')
+    PASSWORD = os.environ.get('REDIS_PASSWORD', '12345')
 
     @classmethod
     def client(cls):

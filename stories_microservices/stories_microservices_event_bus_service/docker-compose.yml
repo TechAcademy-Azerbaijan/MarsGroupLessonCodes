@@ -11,3 +11,10 @@ services:
       - ./redisdb/:/data
     restart: always
     env_file: ./.env
+#    networks:
+#      - redis
+
+networks:
+  default:
+    external:
+      name: redis
