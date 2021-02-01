@@ -16,7 +16,7 @@ coverage==5.3.1
 cryptography==3.3.1
 defusedxml==0.7.0rc1
 distlib==0.3.1
-Django==2.2.8
+Django==2.2.16
 django-celery-beat==2.1.0
 django-cors-headers==3.6.0
 django-filter==2.4.0
@@ -31,6 +31,7 @@ django-timezone-field==4.0
 djangorestframework==3.12.2
 drf-yasg==1.20.0
 filelock==3.0.12
+gunicorn==20.0.4
 idna==2.10
 importlib-metadata==2.1.1
 inflection==0.5.1
