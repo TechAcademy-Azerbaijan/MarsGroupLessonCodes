@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 from flask_sqlalchemy import SQLAlchemy
@@ -11,17 +12,24 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 
+settings = {
+    'prod': 'auth_service.config.production.ProdConfig',
+    'dev': 'auth_service.config.development.DevConfig',
+}
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://db_user:bTmNECmEZOrdUcX4DQkAGevLtRakY@127.0.0.1:5433/db_name'
-app.config['SECRET_KEY'] = 'this is private'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-app.config['JWT_SECRET_KEY'] = 'super-secret'
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)
-app.config['SECURITY_PASSWORD_SALT'] = 'my_precious_two'
+def get_config():
+    if PROD:
+        return settings.get('prod')
+    return settings.get('dev')
+
+DEBUG = False if os.environ.get('DEBUG') else True
+PROD = not DEBUG
+
+
+app.config.from_object(get_config())
 
 jwt = JWTManager(app)
-
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 migrate = Migrate(app, db)

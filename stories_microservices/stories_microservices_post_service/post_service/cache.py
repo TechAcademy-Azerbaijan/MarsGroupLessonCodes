@@ -1,6 +1,6 @@
 import json
 
-from post_service.config.base import RedisConfig
+from .config.base import RedisConfig
 
 
 class SaveCache(RedisConfig):

@@ -27,7 +27,7 @@ def uploaded_file(filename):
     return send_from_directory(MEDIA_ROOT, filename)
 
 
-@app.route('/register/', methods=['POST'])
+@app.route('/api/v1.0/auth/register/', methods=['POST'])
 def register():
     try:
         data = request.json or request.form

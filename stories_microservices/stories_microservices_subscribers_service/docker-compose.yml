@@ -16,7 +16,7 @@ services:
   web:
     build: .
     ports:
-      - "8000:8000"
+      - "8005:8000"
     command: gunicorn subscribers_service.wsgi:app --bind 0.0.0.0 -p 8000
     volumes:
       - .:/code

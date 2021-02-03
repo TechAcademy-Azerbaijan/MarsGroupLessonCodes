@@ -16,7 +16,7 @@ def uploaded_file(filename):
     return send_from_directory(MEDIA_ROOT, filename)
 
 
-@app.route('/recipes/', methods=['GET', 'POST'])
+@app.route('/api/v1.0/posts/recipes/', methods=['GET', 'POST'])
 @swag_from('docs/all_recipes.yml', methods=['GET',])
 @swag_from('docs/create_recipe.yml', methods=['POST',])
 def recipes():

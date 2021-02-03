@@ -1,0 +1,21 @@
+version: '3'
+
+#networks:
+#  services-network:
+#    driver: bridge
+
+services:
+  reverseproxy:
+    container_name: lms_reverse
+    build: .
+    ports:
+      - 80:80
+    restart: always
+#    links:
+#      - "auth_web"
+
+
+networks:
+  default:
+    external:
+      name: auth_web
