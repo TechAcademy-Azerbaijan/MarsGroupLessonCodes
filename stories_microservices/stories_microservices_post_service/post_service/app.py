@@ -9,7 +9,10 @@ from .subscriber import subscribe
 
 # app.config["APPLICATION_ROOT"] = "api/v1.0/post/"
 
-subscribe()
+@app.before_first_request
+def _run_on_start():
+    subscribe()
+
 
 if __name__ == '__main__':
     # app.init_app(db)

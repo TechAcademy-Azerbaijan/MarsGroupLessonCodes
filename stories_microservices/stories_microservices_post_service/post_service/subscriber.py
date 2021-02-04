@@ -36,6 +36,7 @@ class Handler:
 
 
 def subscribe():
+    print('worked')
     redis_conn = RedisConfig.client()
     p = redis_conn.pubsub()
     p.subscribe(**{RedisConfig.CHANNEL_NAME: Handler})
