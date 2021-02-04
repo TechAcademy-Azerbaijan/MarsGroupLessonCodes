@@ -1,9 +1,6 @@
 import os
 import redis
-from ..app import app
-import logging
 from logging.config import dictConfig
-from flask.logging import default_handler
 
 BASE_DIRS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIRS, 'media')
@@ -41,6 +38,8 @@ class Config:
     SECRET_KEY = 'this is private'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEBUG = True
+    JWT_BLACKLIST_ENABLED = True
+    JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
 
 
 class RedisConfig:

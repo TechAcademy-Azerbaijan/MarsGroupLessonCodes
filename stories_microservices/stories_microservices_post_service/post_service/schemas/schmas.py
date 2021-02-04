@@ -10,7 +10,7 @@ from post_service.models import Recipe, Category
 
 class RecipeSchema(ma.SQLAlchemyAutoSchema):
     image = AbsoluteURLFor(
-        'uploaded_file',
+        'api.uploaded_file',
         filename='<image>'
     )
     owner_full_name = fields.Method('get_owner_name', dump_only=True)

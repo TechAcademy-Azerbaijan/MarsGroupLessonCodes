@@ -2,7 +2,8 @@
 from flask import request, jsonify, send_from_directory
 from flasgger import swag_from
 from http import HTTPStatus
-from post_service.app import app
+from ..api import api
+from ..app import app
 from marshmallow.exceptions import ValidationError
 
 from post_service.schemas.schmas import RecipeSchema
@@ -13,12 +14,12 @@ from post_service.models import Recipe
 
 
 
-@app.route('/uploads/<filename>')
+@api.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(MEDIA_ROOT, filename)
 
 
-@app.route('/api/v1.0/posts/recipes/', methods=['GET', 'POST'])
+@api.route('/recipes/', methods=['GET', 'POST'])
 @swag_from('docs/all_recipes.yml', methods=['GET',])
 @swag_from('docs/create_recipe.yml', methods=['POST',])
 def recipes():
@@ -40,7 +41,7 @@ def recipes():
     return RecipeSchema(many=True).jsonify(recipes), HTTPStatus.OK
 
 
-@app.route('/recipes/<int:recipe_id>/', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
+@api.route('/recipes/<int:recipe_id>/', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
 @swag_from('docs/create_recipe.yml', methods=['PUT', 'PATCH'])
 @swag_from('docs/all_recipes.yml', methods=['GET',])
 def recipe(recipe_id):

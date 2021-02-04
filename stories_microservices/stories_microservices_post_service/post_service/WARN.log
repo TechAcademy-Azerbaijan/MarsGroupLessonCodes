@@ -6,3 +6,72 @@
 [2021-02-04 11:09:13,035] INFO in base: Scheduler started
 [2021-02-04 11:09:14,290] INFO in routers: salam
 [2021-02-04 11:09:14,476] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:09:14] "[37mGET /api/v1.0/posts/recipes/ HTTP/1.1[0m" 200 -
+[2021-02-04 11:17:51,233] INFO in base: Scheduler started
+[2021-02-04 11:17:53,535] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:17:53] "[33mGET /api/v1.0/posts/recipes/ HTTP/1.1[0m" 404 -
+[2021-02-04 11:18:04,885] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:18:04] "[33mGET /recipes/ HTTP/1.1[0m" 404 -
+[2021-02-04 11:18:32,581] INFO in _internal:  * Detected change in '/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/post_service/app.py', reloading
+[2021-02-04 11:19:20,396] INFO in base: Scheduler has been shut down
+[2021-02-04 11:19:23,628] INFO in base: Scheduler started
+[2021-02-04 11:19:24,990] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:19:24] "[33mGET /recipes/ HTTP/1.1[0m" 404 -
+[2021-02-04 11:19:36,181] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:19:36] "[33mGET /api/v1.0/recipes/ HTTP/1.1[0m" 404 -
+[2021-02-04 11:19:44,155] INFO in routers: salam
+[2021-02-04 11:19:44,290] ERROR in app: Exception on /api/v1.0/posts/recipes/ [GET]
+Traceback (most recent call last):
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask_monitoringdashboard/core/measurement.py", line 127, in wrapper
+    raise raised_exception
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask_monitoringdashboard/core/measurement.py", line 107, in evaluate
+    result = route_handler(*args, **kwargs)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flasgger/utils.py", line 273, in wrapper
+    return function(*args, **kwargs)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flasgger/utils.py", line 273, in wrapper
+    return function(*args, **kwargs)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/post_service/api/routers.py", line 41, in recipes
+    return RecipeSchema(many=True).jsonify(recipes), HTTPStatus.OK
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask_marshmallow/schema.py", line 39, in jsonify
+    data = self.dump(obj, many=many)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/marshmallow/schema.py", line 559, in dump
+    result = self._serialize(processed_obj, many=many)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/marshmallow/schema.py", line 519, in _serialize
+    for d in typing.cast(typing.Iterable[_T], obj)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/marshmallow/schema.py", line 519, in <listcomp>
+    for d in typing.cast(typing.Iterable[_T], obj)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/marshmallow/schema.py", line 523, in _serialize
+    value = field_obj.serialize(attr_name, obj, accessor=self.get_attribute)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/marshmallow/fields.py", line 330, in serialize
+    return self._serialize(value, attr, obj, **kwargs)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask_marshmallow/fields.py", line 109, in _serialize
+    return url_for(self.endpoint, **param_values)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/app.py", line 2216, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/flask/helpers.py", line 358, in url_for
+    endpoint, values, method=method, force_external=external
+  File "/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/.venv/lib/python3.7/site-packages/werkzeug/routing.py", line 2179, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'uploaded_file' with values ['filename']. Did you mean 'api.uploaded_file' instead?
+[2021-02-04 11:19:44,323] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:19:44] "[35m[1mGET /api/v1.0/posts/recipes/ HTTP/1.1[0m" 500 -
+[2021-02-04 11:20:10,803] INFO in _internal:  * Detected change in '/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/post_service/schemas/schmas.py', reloading
+[2021-02-04 11:20:14,705] INFO in base: Scheduler has been shut down
+[2021-02-04 11:20:18,229] INFO in base: Scheduler started
+[2021-02-04 11:20:18,380] INFO in routers: salam
+[2021-02-04 11:20:18,552] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:20:18] "[37mGET /api/v1.0/posts/recipes/ HTTP/1.1[0m" 200 -
+[2021-02-04 11:22:55,234] INFO in _internal:  * Detected change in '/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/post_service/schemas/schmas.py', reloading
+[2021-02-04 11:24:22,582] INFO in base: Scheduler has been shut down
+[2021-02-04 11:24:25,796] INFO in base: Scheduler started
+[2021-02-04 11:28:33,845] INFO in _internal:  * Detected change in '/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/post_service/config/base.py', reloading
+[2021-02-04 11:28:33,846] INFO in base: Scheduler has been shut down
