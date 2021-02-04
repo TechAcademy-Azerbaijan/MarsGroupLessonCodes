@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from post_service.app import app
 from flask_marshmallow import Marshmallow
 from flasgger import Swagger
+import flask_monitoringdashboard as dashboard
 
 settings = {
     'prod': 'post_service.config.production.ProdConfig',
@@ -26,3 +27,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
 swagger = Swagger(app)
+dashboard.bind(app)

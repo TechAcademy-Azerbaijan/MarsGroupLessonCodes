@@ -7,6 +7,7 @@ from .models import *
 from .api.routers import *
 from .subscriber import subscribe
 
+
 # app.config["APPLICATION_ROOT"] = "api/v1.0/post/"
 
 @app.before_first_request

@@ -1,8 +1,40 @@
 import os
 import redis
+from ..app import app
+import logging
+from logging.config import dictConfig
+from flask.logging import default_handler
 
 BASE_DIRS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIRS, 'media')
+
+dictConfig({
+    'version': 1,
+    'formatters': {
+        'default': {
+        'format': '[%(asctime)s] %(levelname)s: %(message)s',
+    },
+    'simple': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    },
+    },
+    'handlers': {
+        'wsgi': {
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://flask.logging.wsgi_errors_stream',
+            'formatter': 'default',
+        },
+        'file': {
+                'class': 'logging.FileHandler',
+                'formatter': 'simple',
+                'filename': 'WARN.log'
+            }
+        },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi', 'file']
+    }
+})
 
 
 class Config:
@@ -20,3 +52,4 @@ class RedisConfig:
     @classmethod
     def client(cls):
         return redis.Redis(host=cls.HOST, port=cls.PORT, password=cls.PASSWORD, db=0)
+

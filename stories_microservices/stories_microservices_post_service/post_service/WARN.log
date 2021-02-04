@@ -1,0 +1,8 @@
+[2021-02-04 11:06:53,909] INFO in base: Scheduler started
+[2021-02-04 11:06:54,754] INFO in routers: salam
+[2021-02-04 11:06:54,924] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:06:54] "[37mGET /api/v1.0/posts/recipes/ HTTP/1.1[0m" 200 -
+[2021-02-04 11:07:20,536] INFO in _internal:  * Detected change in '/Users/idrissabanli/TAGroups/MarsGroup/stories_microservices/stories_microservices_post_service/post_service/config/base.py', reloading
+[2021-02-04 11:09:09,680] INFO in base: Scheduler has been shut down
+[2021-02-04 11:09:13,035] INFO in base: Scheduler started
+[2021-02-04 11:09:14,290] INFO in routers: salam
+[2021-02-04 11:09:14,476] INFO in _internal: 127.0.0.1 - - [04/Feb/2021 11:09:14] "[37mGET /api/v1.0/posts/recipes/ HTTP/1.1[0m" 200 -

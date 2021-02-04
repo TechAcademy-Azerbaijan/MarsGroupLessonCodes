@@ -1,3 +1,4 @@
+# import logging
 from flask import request, jsonify, send_from_directory
 from flasgger import swag_from
 from http import HTTPStatus
@@ -11,6 +12,7 @@ from post_service.utils.common import save_file
 from post_service.models import Recipe
 
 
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(MEDIA_ROOT, filename)
@@ -20,6 +22,7 @@ def uploaded_file(filename):
 @swag_from('docs/all_recipes.yml', methods=['GET',])
 @swag_from('docs/create_recipe.yml', methods=['POST',])
 def recipes():
+    app.logger.info('salam')
     if request.method == 'POST':
         try:
             data = request.json or request.form
