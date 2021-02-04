@@ -5,7 +5,9 @@ app = Flask(__name__)
 
 from auth_service.config.extentions import db
 from auth_service.models import *
-from auth_service.api.routers import *
+from .api.routers import api
+
+app.register_blueprint(api, url_prefix='/api/v1.0/auth')
 
 # app.config["APPLICATION_ROOT"] = "api/v1.0/post/"
 

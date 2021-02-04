@@ -2,18 +2,22 @@ from flask import request, jsonify, send_from_directory
 from http import HTTPStatus
 from marshmallow.exceptions import ValidationError
 from werkzeug.security import check_password_hash
+from ..config.base import RedisConfig, ACCESS_EXPIRES, REFRESH_EXPIRES
+from ..config.extentions import jwt
 
 from flask_jwt_extended import (
     jwt_required,
     jwt_refresh_token_required,
     create_access_token,
     create_refresh_token,
-    get_jwt_identity
+    get_jwt_identity,
+    get_raw_jwt,
+    get_jti
 )
 
 from auth_service.config.base import MEDIA_ROOT
 
-from auth_service.app import app
+from ..api import api
 from auth_service.schemas.schemas import UserSchema, LoginSchema
 from auth_service.models import User
 
@@ -21,13 +25,25 @@ from auth_service.utils.common import save_file
 
 from auth_service.utils.tokens import confirm_token
 
+revoked_store = RedisConfig.client()
 
-@app.route('/uploads/<filename>')
+
+@jwt.token_in_blacklist_loader
+def check_if_token_is_revoked(decrypted_token):
+    jti = decrypted_token['jti']
+    entry = revoked_store.get(jti)
+    print('entry', entry)
+    if entry is None:
+        return entry == 'true'
+    return True
+
+
+@api.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(MEDIA_ROOT, filename)
 
 
-@app.route('/api/v1.0/auth/register/', methods=['POST'])
+@api.route('/register/', methods=['POST'])
 def register():
     try:
         data = request.json or request.form
@@ -44,7 +60,7 @@ def register():
         return jsonify(err.messages), HTTPStatus.BAD_REQUEST
 
 
-@app.route('/confirm/<token>')
+@api.route('/confirm/<token>')
 def confirm_email(token):
     email = confirm_token(token)
     if not email:
@@ -61,10 +77,7 @@ def confirm_email(token):
         return jsonify({'message': 'You have confirmed your account. Thanks!'}), HTTPStatus.OK
 
 
-
-
-
-@app.route('/login/', methods=['POST'])
+@api.route('/login/', methods=['POST'])
 def login():
     try:
         data = request.json or request.form
@@ -88,7 +101,7 @@ def login():
         return jsonify(err.messages), HTTPStatus.BAD_REQUEST
 
 
-@app.route('/user-profile/')
+@api.route('/user-profile/')
 @jwt_required
 def user_profile():
     user_id = get_jwt_identity()
@@ -98,8 +111,31 @@ def user_profile():
         return jsonify({'message': 'Not found'}), HTTPStatus.UNAUTHORIZED
     return UserSchema().jsonify(user), HTTPStatus.OK
 
+# Endpoint for revoking the current users access token
+@api.route('/access-revoke/', methods=['DELETE'])
+@jwt_required
+def logout():
+    jti = get_raw_jwt()['jti']
+    revoked_store.set(jti, 'true', ACCESS_EXPIRES * 1.2)
+    return jsonify({"msg": "Access token revoked"}), 200
 
-@app.route('/refresh-token/', methods=['POST'])
+
+# Endpoint for revoking the current users refresh token
+@api.route('/refresh_revoke/', methods=['DELETE'])
+@jwt_refresh_token_required
+def logout2():
+    jti = get_raw_jwt()['jti']
+    revoked_store.set(jti, 'true', REFRESH_EXPIRES * 1.2)
+    return jsonify({"msg": "Refresh token revoked"}), 200
+
+
+@api.route('/protected', methods=['GET'])
+@jwt_required
+def protected():
+    return jsonify({'hello': 'world'})
+
+
+@api.route('/refresh-token/', methods=['POST'])
 @jwt_refresh_token_required
 def refresh():
     user_id = get_jwt_identity()

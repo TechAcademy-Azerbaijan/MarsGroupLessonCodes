@@ -51,7 +51,7 @@ class User(UserMixin, db.Model):
 
     def send_confirmation_mail(self):
         token = generate_confirmation_token(self.email)
-        confirm_url = url_for('confirm_email', token=token, _external=True)
+        confirm_url = url_for('api.confirm_email', token=token, _external=True)
         html = render_template('email/confirmation_email.html', confirm_url=confirm_url, user=self)
         data = {
             'subject': 'Confirmation mail',
